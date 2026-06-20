@@ -30,7 +30,7 @@ with st.form("form_item", clear_on_submit=True):
 # Lógica das Ações do CRUD consumindo a API FastAPI
 if btn_criar:
     payload = {"nome": nome, "preco": preco, "descricao": descricao}
-    res = requests.post(f"{"https://crudapi-3pey.onrender.com/items"}/items/", json=payload)
+    res = requests.post(f"{"https://crudapi-3pey.onrender.com/items"}", json=payload)
     if res.status_code == 200:
         st.success("Item adicionado com sucesso!")
     else:
@@ -38,14 +38,14 @@ if btn_criar:
 
 if btn_atualizar and id_item > 0:
     payload = {"nome": nome, "preco": preco, "descricao": descricao}
-    res = requests.put(f"{"https://crudapi-3pey.onrender.com/items"}/items/{id_item}", json=payload)
+    res = requests.put(f"{"https://crudapi-3pey.onrender.com/items"}{id_item}", json=payload)
     if res.status_code == 200:
         st.success(f"Item ID {id_item} atualizado com sucesso!")
     else:
         st.error(f"Não foi possível atualizar o item {id_item}.")
 
 if btn_deletar and id_item > 0:
-    res = requests.delete(f"{"https://crudapi-3pey.onrender.com/items"}/items/{id_item}")
+    res = requests.delete(f"{"https://crudapi-3pey.onrender.com/items"}{id_item}")
     if res.status_code == 200:
         st.success(f"Item ID {id_item} removido do banco.")
     else:
@@ -54,7 +54,7 @@ if btn_deletar and id_item > 0:
 # --- Visualização dos Dados ---
 st.subheader("📋 Inventário em Tempo Real")
 try:
-    resposta_get = requests.get(f"{"https://crudapi-3pey.onrender.com/items"}/items/")
+    resposta_get = requests.get(f"{"https://crudapi-3pey.onrender.com/items"}")
     if resposta_get.status_code == 200:
         lista_itens = resposta_get.json()
         if lista_itens:
